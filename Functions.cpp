@@ -38,9 +38,7 @@ std::vector<std::unique_ptr<Smalltalk>> getPeople(int numBrit,
 
 	if (numWatches <= numPeople) {
 		for (int i=0;i<numWatches;i++){
-			Watch *w = new Watch;
-			//myUniqueClasses[i](w);
-			w = 0;
+			std::unique_ptr<Watch> ptr1(new Watch);
 		}
 		//USE unique ptr move
 	}

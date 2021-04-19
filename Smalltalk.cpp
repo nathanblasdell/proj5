@@ -12,29 +12,32 @@
 #include "./includes/Watch.h"
 
 //derived class will set Nationality, iPerson. iPerson is just a counter used to distinguish between objects of the same type
-Smalltalk::Smalltalk(std::string myNationality, int iPerson):nationality(myNationality), iPerson(iPerson){
+Smalltalk::Smalltalk(std::string myNationality, int iPerson):nationality(myNationality), iPerson(iPerson), current_phrase(0){
 
 }
+Smalltalk::~Smalltalk(void) {
 
+}
 //cycles through phrases added in populatePhrases. Returns them 1 by 1 starting with the first and ending 
 //with the last and then it starts over
 //takes the form Nationality iPerson: phrase
 //for instance the following string comes from an American instance, the 10th iPerson and it is printing AMERICAN_PHRASE_2 
 //AMERICAN 10:Why yes, I would like to supersize that
 std::string Smalltalk::saySomething() {
-	std::string iprsn = std::to_string(iPerson);
-	std::string cur_phrase = std::to_string(current_phrase);
-	return nationality + " " + iprsn + ":" + cur_phrase;
+	this->populatePhrases();
+	std::string phrase = this->mySmallTalk[current_phrase];
+	current_phrase++;
+	return phrase;
 }
 
 //returns the time (if pWatch contains a watch ) in the form of THE_CURRENT_TIME_IS: (from the actual watch object itself) and then the time
 //or I_DO_NOT_HAVE_A_WATCH string (if pWatch does not contain a watch)
 std::string Smalltalk::getTime() {
-	if (pWatch) {
-		return pWatch->getTime();
+	if (!pWatch) {
+		return I_DO_NOT_HAVE_A_WATCH;
 	}
 	else {
-		return I_DO_NOT_HAVE_A_WATCH;
+		return pWatch->getTime();
 	}
 }
 
